@@ -13,7 +13,6 @@
         <th>title</th>
         <th>action</th>
     </tr>
-
     <tr th:each="item : ${items}">
         <td th:text="${item.getId()}"></td>
         <td><a th:href="@{'/items/' + ${item.id}}"> <span th:text="${item.title}"></span></a></td>

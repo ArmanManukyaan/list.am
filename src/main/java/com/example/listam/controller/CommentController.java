@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -18,12 +19,12 @@ public class CommentController {
     private CommentRepository commentRepository;
     @Autowired
     private ItemRepository itemRepository;
-
     @PostMapping("/comments/add")
     public String commentsAdd(@RequestParam("comment") String comment,
                               @RequestParam("id") int id) {
         Comment comments = new Comment();
         comments.setComment(comment);
+        comments.setCommentDate(new Date());
         Optional<Item> byId = itemRepository.findById(id);
         if (byId.isPresent()) {
             Item item = byId.get();

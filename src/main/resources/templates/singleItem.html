@@ -14,14 +14,16 @@
         <th>id</th>
         <th>comment</th>
         <th>itemName</th>
+        <th>dataTime</th>
         <th>action</th>
     </tr>
     <br>
-
+    <img th:if="${item.getImgName() != null}" th:src="@{/getImage(imageName=${item.getImgName()})}" width="400"/>
     <tr th:each="comment:${comments}">
         <td th:text="${comment.getId()}"></td>
         <td th:text="${comment.getComment()}"></td>
         <td th:text="${comment.item.title}"></td>
+        <td th:text="${comment.getCommentDate()}"></td>
         <td><a th:href="@{/comments/remove(id=${comment.getId()})}">Remove</a></td>
     </tr>
     <br>
@@ -31,7 +33,6 @@
         <textarea name="comment"></textarea>
         <input type="submit" value="create">
     </form>
-
 </table>
 </body>
 </html>
