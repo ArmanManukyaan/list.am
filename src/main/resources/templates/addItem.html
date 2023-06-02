@@ -5,16 +5,21 @@
     <title>Add Item</title>
 </head>
 <body>
-<form action="/items/add" method="post" enctype="multipart/form-data" >
+<form action="/items/add" method="post" enctype="multipart/form-data">
     Title <input type="text" name="title"><br>
     Description <textarea name="description"></textarea>
 
     <select name="category.id">
         <option th:each="category :${categories}"
-        th:text="${category.name}" th:value="${category.getId}">
+                th:text="${category.name}" th:value="${category.getId}">
         </option>
     </select><br>
     <input type="file" name="image">
+    <div th:each="tag: ${hashtags }">
+        <span th:text="${tag.name}"></span>
+            <input type="checkbox" name="tags" th:value="${tag.id}">
+
+    </div>
     <input type="submit" value="creat">
 </form>
 </body>

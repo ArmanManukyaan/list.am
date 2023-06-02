@@ -27,8 +27,9 @@
         <td><a th:href="@{/comments/remove(id=${comment.getId()})}">Remove</a></td>
     </tr>
     <br>
-
-    <form action="/comments/add"  method="post">
+    <span th:each="tag: ${item.hashtagList}"
+          th:text="${tag.name}"></span><br>
+    <form action="/comments/add" method="post">
         <input type="hidden" name="id" th:value="${item.id}">
         <textarea name="comment"></textarea>
         <input type="submit" value="create">

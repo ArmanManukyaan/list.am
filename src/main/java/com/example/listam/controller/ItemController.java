@@ -5,6 +5,7 @@ import com.example.listam.entity.Comment;
 import com.example.listam.entity.Item;
 import com.example.listam.repository.CategoryRepository;
 import com.example.listam.repository.CommentRepository;
+import com.example.listam.repository.HashTagRepository;
 import com.example.listam.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,10 @@ public class ItemController {
     private CommentRepository commentRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private HashTagRepository hashTagRepository;
+
     @Value("${listam.upload.image.path}")
     private String imageUploadPate;
 
@@ -35,7 +40,6 @@ public class ItemController {
         modelMap.addAttribute("items", all);
         return "items";
     }
-
     @GetMapping("/items/{id}")
     public String itemsPage(@PathVariable("id") int
                                     id, ModelMap modelMap) {
@@ -55,12 +59,14 @@ public class ItemController {
     public String itemsAddPage(ModelMap modelMap) {
         List<Category> all = categoryRepository.findAll();
         modelMap.addAttribute("categories", all);
+        modelMap.addAttribute("hashtags",hashTagRepository.findAll());
         return "addItem";
     }
 
     @PostMapping("/items/add")
     public String addItem(@ModelAttribute Item item,
-                          @RequestParam("image") MultipartFile multipartFile) throws IOException {
+                          @RequestParam("image") MultipartFile multipartFile,@RequestParam("tags")
+                              List<Integer> tags) throws IOException {
         if (multipartFile != null && !multipartFile.isEmpty()) {
             String fileName = System.nanoTime() + "_" + multipartFile.getOriginalFilename();
             File file = new File(imageUploadPate + fileName);
