@@ -1,14 +1,4 @@
 package com.example.listam.entity;
 
-public class Map {
-
-
-
-
-
-
-
-
-
-
+public class Map{
 }
